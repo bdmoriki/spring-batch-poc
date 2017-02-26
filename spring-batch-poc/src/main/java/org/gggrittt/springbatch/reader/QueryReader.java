@@ -1,0 +1,42 @@
+package org.gggrittt.springbatch.reader;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.springframework.batch.item.ItemReader;
+import org.springframework.batch.item.NonTransientResourceException;
+import org.springframework.batch.item.ParseException;
+import org.springframework.batch.item.UnexpectedInputException;
+
+public class QueryReader implements ItemReader<Map<String, Object>> {
+
+	private String query;
+	private String database;
+
+	private final int dumbDataCount = ThreadLocalRandom.current().nextInt(5);
+	private int currentRecord = 0;
+
+	@Override
+	public Map<String, Object> read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
+		// MOCK DATABASE QUERY WITH DUMB DATA
+		if (currentRecord < dumbDataCount) {
+			final Map<String, Object> map = new HashMap<>();
+			map.put("query", query);
+			map.put("database", database);
+			map.put("currentRecord", currentRecord);
+			currentRecord++;
+			return map;
+		}
+		return null;
+	}
+
+	public void setQuery(String query) {
+		this.query = query;
+	}
+
+	public void setDatabase(String database) {
+		this.database = database;
+	}
+
+}
