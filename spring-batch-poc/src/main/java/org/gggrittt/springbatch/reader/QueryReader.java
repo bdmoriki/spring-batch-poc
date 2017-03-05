@@ -12,7 +12,6 @@ import org.springframework.batch.item.UnexpectedInputException;
 public class QueryReader implements ItemReader<Map<String, Object>> {
 
 	private String query;
-	private String database;
 
 	private final int dumbDataCount = ThreadLocalRandom.current().nextInt(5);
 	private int currentRecord = 0;
@@ -23,7 +22,6 @@ public class QueryReader implements ItemReader<Map<String, Object>> {
 		if (currentRecord < dumbDataCount) {
 			final Map<String, Object> map = new HashMap<>();
 			map.put("query", query);
-			map.put("database", database);
 			map.put("currentRecord", currentRecord);
 			currentRecord++;
 			return map;
@@ -33,10 +31,6 @@ public class QueryReader implements ItemReader<Map<String, Object>> {
 
 	public void setQuery(String query) {
 		this.query = query;
-	}
-
-	public void setDatabase(String database) {
-		this.database = database;
 	}
 
 }

@@ -24,11 +24,10 @@ public class QueryPartitioner implements Partitioner {
 		LOGGER.debug("Dumb partionning, should be done on files read.");
 
 		final Map<String, ExecutionContext> map = new HashMap<>();
-		for (int i = 0; i < 50; i++) {
+		for (int i = 0; i < 6; i++) {
 			final ExecutionContext e = new ExecutionContext();
 			map.put("query_" + i, e);
 			e.put("query", i);
-			e.put("database", i);
 			e.put("tempDataFileLocation", new FileSystemResource(tempDataLocation + "/tmp_" + i + ".data"));
 		}
 
